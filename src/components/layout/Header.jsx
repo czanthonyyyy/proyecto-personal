@@ -3,6 +3,8 @@ import { useCart } from '../../context/CartContext'
 import { useWishlist } from '../../context/WishlistContext'
 import CartIcon from '../cart/CartIcon'
 import MobileMenu from './MobileMenu'
+import BrandLogo from '../ui/BrandLogo'
+import { FaBars, FaHeart } from 'react-icons/fa'
 
 const Header = ({ activeTab, setActiveTab }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -18,16 +20,23 @@ const Header = ({ activeTab, setActiveTab }) => {
   
   return (
     <>
-      <header className="sticky top-0 z-40 glass-strong border-b border-white/20 backdrop-blur-lg">
+      <header className="sticky top-0 z-40 border-b border-white/10 backdrop-blur-2xl bg-[#05070f]/80 shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-4">
             {/* Logo */}
             <button
               onClick={handleLogoClick}
-              className="flex items-center gap-2 cursor-pointer"
+              className="flex items-center gap-4 cursor-pointer"
+              aria-label="Volver al inicio NovaForge"
             >
-              <div className="text-2xl font-bold bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent">
-                GameStore
+              <BrandLogo />
+              <div className="hidden lg:flex flex-col text-left">
+                <span className="text-xs uppercase tracking-[0.4em] text-white/60">
+                  Neo Gaming Marketplace
+                </span>
+                <span className="text-sm text-white/60">
+                  Actualizado diariamente con los títulos más calientes
+                </span>
               </div>
             </button>
             
@@ -73,19 +82,10 @@ const Header = ({ activeTab, setActiveTab }) => {
                 className="relative p-2 text-white/80 hover:text-cyan transition-colors duration-300 rounded-lg hover:bg-white/10"
                 aria-label="Lista de deseos"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
+                <FaHeart
+                  className={`w-6 h-6 ${wishlistCount > 0 ? 'text-red-400' : ''}`}
+                  aria-hidden="true"
+                />
                 {wishlistCount > 0 && (
                   <span className="absolute top-0 right-0 bg-cyan text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {wishlistCount}
@@ -108,19 +108,7 @@ const Header = ({ activeTab, setActiveTab }) => {
                 className="md:hidden p-2 text-white/80 hover:text-cyan transition-colors duration-300 rounded-lg hover:bg-white/10"
                 aria-label="Menú móvil"
               >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
+                <FaBars className="w-6 h-6" aria-hidden="true" />
               </button>
             </div>
           </div>

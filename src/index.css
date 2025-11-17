@@ -3,13 +3,22 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-dark-900 text-white font-sans antialiased;
-    background: linear-gradient(135deg, #0a0a0a 0%, #121212 50%, #1a0b2e 100%);
-    min-height: 100vh;
-  }
   html {
     scroll-behavior: smooth;
+    background-color: #03050b;
+  }
+  body {
+    @apply bg-dark-900 text-white font-sans antialiased;
+    background: radial-gradient(circle at top, rgba(0, 217, 255, 0.12), transparent 55%),
+      radial-gradient(circle at 80% 10%, rgba(139, 92, 246, 0.15), transparent 45%),
+      #03050b;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  #root {
+    min-height: 100vh;
+    background-color: transparent;
+    isolation: isolate;
   }
 }
 

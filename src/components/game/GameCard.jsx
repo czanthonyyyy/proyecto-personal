@@ -6,7 +6,8 @@ import Rating from '../ui/Rating'
 import Badge from '../ui/Badge'
 import Button from '../ui/Button'
 import { formatPrice, getDiscountPrice } from '../../utils/helpers'
-import { PLATFORM_ICONS } from '../../utils/constants'
+import { DEFAULT_PLATFORM_ICON, PLATFORM_ICONS } from '../../utils/constants'
+import { FaHeart, FaRegHeart } from 'react-icons/fa'
 
 const GameCard = memo(({ game, onViewDetails }) => {
   const { addToCart, isInCart } = useCart()
@@ -72,19 +73,11 @@ const GameCard = memo(({ game, onViewDetails }) => {
           }`}
           aria-label="Añadir a lista de deseos"
         >
-          <svg
-            className="w-5 h-5"
-            fill={inWishlist ? 'currentColor' : 'none'}
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            />
-          </svg>
+          {inWishlist ? (
+            <FaHeart className="w-5 h-5" aria-hidden="true" />
+          ) : (
+            <FaRegHeart className="w-5 h-5" aria-hidden="true" />
+          )}
         </button>
         {/* Overlay on Hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -112,15 +105,19 @@ const GameCard = memo(({ game, onViewDetails }) => {
         
         {/* Platforms */}
         <div className="flex items-center gap-2 flex-wrap">
-          {game.platforms.slice(0, 3).map((platform) => (
-            <span
-              key={platform}
-              className="text-xs text-white/60"
-              title={platform}
-            >
-              {PLATFORM_ICONS[platform] || '🎮'}
-            </span>
-          ))}
+          {game.platforms.slice(0, 3).map((platform) => {
+            const PlatformIcon = PLATFORM_ICONS[platform] || DEFAULT_PLATFORM_ICON
+            return (
+              <span
+                key={platform}
+                className="text-xs text-white/60 flex items-center"
+                title={platform}
+              >
+                <PlatformIcon className="w-4 h-4" aria-hidden="true" />
+                <span className="sr-only">{platform}</span>
+              </span>
+            )
+          })}
           {game.platforms.length > 3 && (
             <span className="text-xs text-white/60">+{game.platforms.length - 3}</span>
           )}

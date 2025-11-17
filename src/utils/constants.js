@@ -1,3 +1,15 @@
+import {
+  FaAndroid,
+  FaApple,
+  FaDesktop,
+  FaGamepad,
+  FaGlobe,
+  FaMobileAlt,
+  FaPlaystation,
+  FaXbox,
+} from 'react-icons/fa'
+import { SiNintendoswitch } from 'react-icons/si'
+
 export const GENRES = [
   'Action',
   'RPG',
@@ -52,15 +64,17 @@ export const SORT_OPTIONS = [
 ]
 
 export const PLATFORM_ICONS = {
-  'PC': '💻',
-  'PlayStation 5': '🎮',
-  'PlayStation 4': '🎮',
-  'Xbox Series X|S': '🎯',
-  'Xbox One': '🎯',
-  'Nintendo Switch': '🎲',
-  'macOS': '🍎',
-  'iOS': '📱',
-  'Android': '📱',
-  'Multi-platform': '🌐',
+  PC: FaDesktop,
+  'PlayStation 5': FaPlaystation,
+  'PlayStation 4': FaPlaystation,
+  'Xbox Series X|S': FaXbox,
+  'Xbox One': FaXbox,
+  'Nintendo Switch': SiNintendoswitch,
+  macOS: FaApple,
+  iOS: FaMobileAlt,
+  Android: FaAndroid,
+  'Multi-platform': FaGlobe,
 }
+
+export const DEFAULT_PLATFORM_ICON = FaGamepad
 

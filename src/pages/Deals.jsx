@@ -3,8 +3,8 @@ import { games } from '../data/games'
 import GameGrid from '../components/game/GameGrid'
 import GameModal from '../components/game/GameModal'
 import Badge from '../components/ui/Badge'
-import { filterGames, sortGames, getDiscountPrice } from '../utils/helpers'
 import { formatPrice } from '../utils/helpers'
+import { FaClock, FaFireAlt, FaPercentage } from 'react-icons/fa'
 
 const Deals = () => {
   const [selectedGame, setSelectedGame] = useState(null)
@@ -52,80 +52,79 @@ const Deals = () => {
     setIsModalOpen(false)
     setSelectedGame(null)
   }
+
+  const highestDiscount = dealsGames[0]?.discount ?? 0
+  const averageDiscount = dealsGames.length
+    ? Math.round(
+        dealsGames.reduce((acc, game) => acc + game.discount, 0) / dealsGames.length
+      )
+    : 0
+  const estimatedSavings = dealsGames.reduce(
+    (acc, game) => acc + (game.discount / 100) * game.price,
+    0
+  )
   
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-4xl font-bold text-white">Ofertas Especiales</h1>
+    <div className="container mx-auto px-4 py-12 space-y-10">
+      <section className="rounded-3xl border border-white/10 bg-gradient-to-br from-red-500/10 via-cyan/10 to-transparent p-8 space-y-6">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.4em] text-white/60">Flash Deals</p>
+            <h1 className="text-4xl font-black text-white">Ofertas Especiales</h1>
+            <p className="text-white/70 max-w-2xl">
+              Curamos descuentos agresivos con métricas de demanda real. Cada bloque se actualiza cada
+              24 horas o cuando se agota el stock digital.
+            </p>
+          </div>
           <Badge variant="discount" size="lg">
             ¡Ofertas Limitadas!
           </Badge>
         </div>
-        
-        {/* Countdown Timer */}
-        <div className="glass rounded-lg p-6 mb-6">
-          <h2 className="text-xl font-bold text-white mb-4">
-            Las ofertas terminan en:
-          </h2>
-          <div className="flex items-center gap-4">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-cyan">{timeRemaining.days}</div>
-              <div className="text-sm text-white/60">Días</div>
-            </div>
-            <div className="text-2xl text-white/60">:</div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-cyan">{timeRemaining.hours}</div>
-              <div className="text-sm text-white/60">Horas</div>
-            </div>
-            <div className="text-2xl text-white/60">:</div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-cyan">{timeRemaining.minutes}</div>
-              <div className="text-sm text-white/60">Minutos</div>
-            </div>
-            <div className="text-2xl text-white/60">:</div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-cyan">{timeRemaining.seconds}</div>
-              <div className="text-sm text-white/60">Segundos</div>
-            </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="glass rounded-2xl p-4 text-center">
+            <FaPercentage className="w-5 h-5 text-cyan mx-auto mb-2" aria-hidden="true" />
+            <p className="text-3xl font-bold text-white">{highestDiscount}%</p>
+            <p className="text-white/60 text-sm">Mayor descuento activo</p>
+          </div>
+          <div className="glass rounded-2xl p-4 text-center">
+            <FaFireAlt className="w-5 h-5 text-cyan mx-auto mb-2" aria-hidden="true" />
+            <p className="text-3xl font-bold text-white">{averageDiscount}%</p>
+            <p className="text-white/60 text-sm">Promedio global</p>
+          </div>
+          <div className="glass rounded-2xl p-4 text-center">
+            <FaClock className="w-5 h-5 text-cyan mx-auto mb-2" aria-hidden="true" />
+            <p className="text-3xl font-bold text-white">
+              {timeRemaining.hours.toString().padStart(2, '0')}:
+              {timeRemaining.minutes.toString().padStart(2, '0')}
+            </p>
+            <p className="text-white/60 text-sm">Tiempo restante global</p>
+          </div>
+          <div className="glass rounded-2xl p-4 text-center">
+            <p className="text-3xl font-bold text-white">{formatPrice(estimatedSavings)}</p>
+            <p className="text-white/60 text-sm">Ahorro agregado</p>
           </div>
         </div>
-        
-        {/* Deals Info */}
-        <div className="glass rounded-lg p-6">
-          <p className="text-white/80 mb-4">
-            Descubre nuestras ofertas especiales con descuentos de hasta el 75% de descuento.
-            ¡No te pierdas estas ofertas limitadas!
-          </p>
-          <div className="flex items-center gap-4 flex-wrap">
-            <Badge variant="discount" size="md">
-              Hasta 75% OFF
-            </Badge>
-            <Badge variant="default" size="md">
-              Ofertas Limitadas
-            </Badge>
-            <Badge variant="popular" size="md">
-              Más Populares
-            </Badge>
+
+        <div className="glass rounded-2xl p-6">
+          <h2 className="text-xl font-bold text-white mb-4">Próximo corte en:</h2>
+          <div className="flex items-center gap-6 flex-wrap">
+            {['days', 'hours', 'minutes', 'seconds'].map((key) => (
+              <div key={key} className="text-center min-w-[70px]">
+                <div className="text-3xl font-bold text-cyan">
+                  {timeRemaining[key].toString().padStart(2, '0')}
+                </div>
+                <div className="text-xs uppercase tracking-[0.3em] text-white/60">{key}</div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-      
-      {/* Deals Grid */}
-      <GameGrid
-        games={dealsGames}
-        onViewDetails={handleViewDetails}
-        viewMode="grid"
-      />
-      
-      {/* Game Modal */}
+      </section>
+
+      <GameGrid games={dealsGames} onViewDetails={handleViewDetails} viewMode="grid" />
+
       {selectedGame && (
-        <GameModal
-          game={selectedGame}
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-        />
+        <GameModal game={selectedGame} isOpen={isModalOpen} onClose={handleCloseModal} />
       )}
     </div>
   )

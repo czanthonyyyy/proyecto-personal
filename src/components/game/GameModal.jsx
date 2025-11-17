@@ -7,7 +7,15 @@ import { useCart } from '../../context/CartContext'
 import { useWishlist } from '../../context/WishlistContext'
 import { useToast } from '../../context/ToastContext'
 import { formatPrice, getDiscountPrice } from '../../utils/helpers'
-import { PLATFORM_ICONS } from '../../utils/constants'
+import { DEFAULT_PLATFORM_ICON, PLATFORM_ICONS } from '../../utils/constants'
+import {
+  FaCartPlus,
+  FaCheckCircle,
+  FaChevronLeft,
+  FaChevronRight,
+  FaHeart,
+  FaRegHeart,
+} from 'react-icons/fa'
 
 const GameModal = ({ game, isOpen, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -66,18 +74,14 @@ const GameModal = ({ game, isOpen, onClose }) => {
                 className="absolute left-4 top-1/2 -translate-y-1/2 p-2 glass-strong rounded-full text-white hover:text-cyan transition-colors duration-300"
                 aria-label="Imagen anterior"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
+                <FaChevronLeft className="w-6 h-6" aria-hidden="true" />
               </button>
               <button
                 onClick={nextImage}
                 className="absolute right-4 top-1/2 -translate-y-1/2 p-2 glass-strong rounded-full text-white hover:text-cyan transition-colors duration-300"
                 aria-label="Imagen siguiente"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+                <FaChevronRight className="w-6 h-6" aria-hidden="true" />
               </button>
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                 {game.images.map((_, index) => (
@@ -116,16 +120,19 @@ const GameModal = ({ game, isOpen, onClose }) => {
                 </Badge>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
-                {game.platforms.map((platform) => (
-                  <span
-                    key={platform}
-                    className="text-sm text-white/60 flex items-center gap-1"
-                    title={platform}
-                  >
-                    <span>{PLATFORM_ICONS[platform] || '🎮'}</span>
-                    <span>{platform}</span>
-                  </span>
-                ))}
+                {game.platforms.map((platform) => {
+                  const PlatformIcon = PLATFORM_ICONS[platform] || DEFAULT_PLATFORM_ICON
+                  return (
+                    <span
+                      key={platform}
+                      className="text-sm text-white/60 flex items-center gap-1"
+                      title={platform}
+                    >
+                      <PlatformIcon className="w-4 h-4" aria-hidden="true" />
+                      <span>{platform}</span>
+                    </span>
+                  )
+                })}
               </div>
             </div>
             
@@ -149,10 +156,8 @@ const GameModal = ({ game, isOpen, onClose }) => {
                 <h3 className="text-xl font-bold text-white mb-2">Características</h3>
                 <ul className="space-y-2">
                   {game.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-2 text-white/80">
-                      <svg className="w-5 h-5 text-cyan mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
+                      <li key={index} className="flex items-start gap-2 text-white/80">
+                        <FaCheckCircle className="w-5 h-5 text-cyan mt-0.5 flex-shrink-0" aria-hidden="true" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -234,17 +239,25 @@ const GameModal = ({ game, isOpen, onClose }) => {
                   variant="primary"
                   size="lg"
                   onClick={handleAddToCart}
-                  className="w-full"
+                  className="w-full flex items-center justify-center gap-2"
                 >
-                  {inCart ? 'En Carrito' : 'Añadir al Carrito'}
+                  <FaCartPlus className="w-5 h-5" aria-hidden="true" />
+                  <span>{inCart ? 'En Carrito' : 'Añadir al Carrito'}</span>
                 </Button>
                 <Button
                   variant="ghost"
                   size="lg"
                   onClick={handleToggleWishlist}
-                  className="w-full"
+                  className="w-full flex items-center justify-center gap-2"
                 >
-                  {inWishlist ? '❤️ En Lista de Deseos' : '🤍 Añadir a Lista de Deseos'}
+                  {inWishlist ? (
+                    <FaHeart className="w-5 h-5 text-red-400" aria-hidden="true" />
+                  ) : (
+                    <FaRegHeart className="w-5 h-5" aria-hidden="true" />
+                  )}
+                  <span>
+                    {inWishlist ? 'En Lista de Deseos' : 'Añadir a Lista de Deseos'}
+                  </span>
                 </Button>
               </div>
               
