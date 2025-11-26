@@ -4,6 +4,7 @@ import { useWishlist } from '../../context/WishlistContext'
 import CartIcon from '../cart/CartIcon'
 import MobileMenu from './MobileMenu'
 import BrandLogo from '../ui/BrandLogo'
+import Button from '../ui/Button'
 import { FaBars, FaHeart } from 'react-icons/fa'
 
 const Header = ({ activeTab, setActiveTab }) => {
@@ -35,7 +36,7 @@ const Header = ({ activeTab, setActiveTab }) => {
                   Neo Gaming Marketplace
                 </span>
                 <span className="text-sm text-white/60">
-                  Actualizado diariamente con los títulos más calientes
+                  Actualizado diariamente con los lanzamientos más destacados
                 </span>
               </div>
             </button>
@@ -101,6 +102,27 @@ const Header = ({ activeTab, setActiveTab }) => {
               >
                 <CartIcon count={cartCount} />
               </button>
+
+              <div className="hidden md:block">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="px-4"
+                  onClick={() => setActiveTab('auth')}
+                >
+                  Ingresar / Registrar
+                </Button>
+              </div>
+              <div className="md:hidden">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setActiveTab('auth')}
+                  className="px-3"
+                >
+                  Cuenta
+                </Button>
+              </div>
               
               {/* Mobile Menu Button */}
               <button

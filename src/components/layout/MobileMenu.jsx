@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { FaBookOpen, FaGavel, FaHeadset, FaHome, FaStore, FaTags, FaTimes } from 'react-icons/fa'
+import { FaBookOpen, FaGavel, FaHeadset, FaHome, FaStore, FaTags, FaTimes, FaUserShield } from 'react-icons/fa'
 import { RiHeart2Fill, RiShoppingCartLine } from 'react-icons/ri'
 import BrandLogo from '../ui/BrandLogo'
 
@@ -10,6 +10,7 @@ const menuLinks = [
   { id: 'library', label: 'Biblioteca', Icon: FaBookOpen },
   { id: 'wishlist', label: 'Lista de Deseos', Icon: RiHeart2Fill },
   { id: 'cart', label: 'Carrito', Icon: RiShoppingCartLine },
+  { id: 'auth', label: 'Ingresar / Registrar', Icon: FaUserShield },
   { id: 'support', label: 'Soporte', Icon: FaHeadset },
   { id: 'legal', label: 'Legal', Icon: FaGavel },
 ]

@@ -494,7 +494,8 @@ export const games = [
       { user: 'SandboxLover', rating: 5, comment: 'Perfecto para todas las edades. La creatividad no tiene límites.' }
     ],
     images: [
-      'https://cdn.cloudflare.steamstatic.com/steam/apps/1794680/header.jpg'
+      'https://assets.xboxservices.com/assets/78/2b/782ba040-9bde-4ab2-9b33-732949cc90d4.jpg?n=Minecraft_GLP-Page-Hero-1084_1920x1080.jpg',
+      'https://images.ctfassets.net/umhrp0op95v1/5fP2t6MSmcphlu0A2hn5V9/f33e049d072a6166c256b82d475c933c/minecraft-screenshot-1.jpg'
     ],
     trailer: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
   },

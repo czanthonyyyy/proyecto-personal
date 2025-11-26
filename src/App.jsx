@@ -13,6 +13,7 @@ import Wishlist from './pages/Wishlist'
 import Cart from './pages/Cart'
 import Support from './pages/Support'
 import Legal from './pages/Legal'
+import Auth from './pages/Auth'
 import Toast from './components/ui/Toast'
 import BackToTop from './components/ui/BackToTop'
 import { ToastProvider } from './context/ToastContext'
@@ -35,6 +36,8 @@ function App() {
         return <Wishlist />
       case 'cart':
         return <Cart />
+      case 'auth':
+        return <Auth />
       case 'support':
         return (
           <Support
